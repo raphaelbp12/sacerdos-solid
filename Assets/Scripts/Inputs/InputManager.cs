@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
     [SerializeField] MoveController moveController;
 
@@ -25,8 +26,10 @@ public class InputManager : MonoBehaviour
         print("jump");
     }
 
+    [Client]
     private void Update()
     {
+        if (!hasAuthority) return;
         moveController.ReceiveInput(horizontalInput);
     }
 

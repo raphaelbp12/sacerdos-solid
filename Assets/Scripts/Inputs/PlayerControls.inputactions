@@ -145,6 +145,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Skills",
+            "id": "af30b270-8d19-495f-b637-fa174d34290f",
+            "actions": [
+                {
+                    "name": "Skill1",
+                    "type": "Button",
+                    "id": "bc32de78-b96f-4b18-82c1-74344ade3b45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "27779127-cf6b-4a34-916f-7532a39f582b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

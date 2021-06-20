@@ -158,6 +158,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Skills"",
+            ""id"": ""af30b270-8d19-495f-b637-fa174d34290f"",
+            ""actions"": [
+                {
+                    ""name"": ""Skill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc32de78-b96f-4b18-82c1-74344ade3b45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""27779127-cf6b-4a34-916f-7532a39f582b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -166,6 +193,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_HorizontalMovement = m_Movement.FindAction("HorizontalMovement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+        // Skills
+        m_Skills = asset.FindActionMap("Skills", throwIfNotFound: true);
+        m_Skills_Skill1 = m_Skills.FindAction("Skill1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -252,9 +282,46 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Skills
+    private readonly InputActionMap m_Skills;
+    private ISkillsActions m_SkillsActionsCallbackInterface;
+    private readonly InputAction m_Skills_Skill1;
+    public struct SkillsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public SkillsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Skill1 => m_Wrapper.m_Skills_Skill1;
+        public InputActionMap Get() { return m_Wrapper.m_Skills; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SkillsActions set) { return set.Get(); }
+        public void SetCallbacks(ISkillsActions instance)
+        {
+            if (m_Wrapper.m_SkillsActionsCallbackInterface != null)
+            {
+                @Skill1.started -= m_Wrapper.m_SkillsActionsCallbackInterface.OnSkill1;
+                @Skill1.performed -= m_Wrapper.m_SkillsActionsCallbackInterface.OnSkill1;
+                @Skill1.canceled -= m_Wrapper.m_SkillsActionsCallbackInterface.OnSkill1;
+            }
+            m_Wrapper.m_SkillsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Skill1.started += instance.OnSkill1;
+                @Skill1.performed += instance.OnSkill1;
+                @Skill1.canceled += instance.OnSkill1;
+            }
+        }
+    }
+    public SkillsActions @Skills => new SkillsActions(this);
     public interface IMovementActions
     {
         void OnHorizontalMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface ISkillsActions
+    {
+        void OnSkill1(InputAction.CallbackContext context);
     }
 }
