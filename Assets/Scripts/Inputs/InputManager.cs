@@ -6,6 +6,7 @@ using UnityEngine;
 public class InputManager : NetworkBehaviour
 {
     [SerializeField] MoveController moveController;
+    [SerializeField] InventoryManager inventoryManager;
 
     PlayerControls controls;
     PlayerControls.MovementActions movement;
@@ -19,6 +20,7 @@ public class InputManager : NetworkBehaviour
 
         movement.HorizontalMovement.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
         movement.Jump.performed += _ => OnJump();
+        movement.Jump.performed += _ => inventoryManager.AddRandomItemToInventory();
     }
 
     private void OnJump()
