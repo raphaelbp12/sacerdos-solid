@@ -10,6 +10,7 @@ public class InputManager : NetworkBehaviour
 
     PlayerControls controls;
     PlayerControls.MovementActions movement;
+    PlayerControls.TestActions test;
 
     Vector2 horizontalInput;
 
@@ -17,10 +18,14 @@ public class InputManager : NetworkBehaviour
     {
         controls = new PlayerControls();
         movement = controls.Movement;
+        test = controls.Test;
 
         movement.HorizontalMovement.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
         movement.Jump.performed += _ => OnJump();
         movement.Jump.performed += _ => inventoryManager.AddRandomItemToInventory();
+
+        test.Test1.performed += _ => inventoryManager.inventoryObject.Save();
+        test.Test2.performed += _ => inventoryManager.inventoryObject.Load();
     }
 
     private void OnJump()

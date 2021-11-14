@@ -185,6 +185,52 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Test"",
+            ""id"": ""c7cd8f22-549f-42cd-b7d0-ea0e7a303dfb"",
+            ""actions"": [
+                {
+                    ""name"": ""Test1"",
+                    ""type"": ""Button"",
+                    ""id"": ""694a80e7-99fb-4be5-b7cb-2b666dfdbec1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Test2"",
+                    ""type"": ""Button"",
+                    ""id"": ""27ea1eb4-286e-4cac-8efd-1516e1e3f4c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""25ef5324-6622-44f6-aa05-f17601a04699"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1801fa32-4b45-4309-ba00-f17abcff3905"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -196,6 +242,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Skills
         m_Skills = asset.FindActionMap("Skills", throwIfNotFound: true);
         m_Skills_Skill1 = m_Skills.FindAction("Skill1", throwIfNotFound: true);
+        // Test
+        m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
+        m_Test_Test1 = m_Test.FindAction("Test1", throwIfNotFound: true);
+        m_Test_Test2 = m_Test.FindAction("Test2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +365,47 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public SkillsActions @Skills => new SkillsActions(this);
+
+    // Test
+    private readonly InputActionMap m_Test;
+    private ITestActions m_TestActionsCallbackInterface;
+    private readonly InputAction m_Test_Test1;
+    private readonly InputAction m_Test_Test2;
+    public struct TestActions
+    {
+        private @PlayerControls m_Wrapper;
+        public TestActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Test1 => m_Wrapper.m_Test_Test1;
+        public InputAction @Test2 => m_Wrapper.m_Test_Test2;
+        public InputActionMap Get() { return m_Wrapper.m_Test; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestActions set) { return set.Get(); }
+        public void SetCallbacks(ITestActions instance)
+        {
+            if (m_Wrapper.m_TestActionsCallbackInterface != null)
+            {
+                @Test1.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @Test1.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @Test1.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @Test2.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest2;
+                @Test2.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest2;
+                @Test2.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest2;
+            }
+            m_Wrapper.m_TestActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Test1.started += instance.OnTest1;
+                @Test1.performed += instance.OnTest1;
+                @Test1.canceled += instance.OnTest1;
+                @Test2.started += instance.OnTest2;
+                @Test2.performed += instance.OnTest2;
+                @Test2.canceled += instance.OnTest2;
+            }
+        }
+    }
+    public TestActions @Test => new TestActions(this);
     public interface IMovementActions
     {
         void OnHorizontalMovement(InputAction.CallbackContext context);
@@ -323,5 +414,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface ISkillsActions
     {
         void OnSkill1(InputAction.CallbackContext context);
+    }
+    public interface ITestActions
+    {
+        void OnTest1(InputAction.CallbackContext context);
+        void OnTest2(InputAction.CallbackContext context);
     }
 }

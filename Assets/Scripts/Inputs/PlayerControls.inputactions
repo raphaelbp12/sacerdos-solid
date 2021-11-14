@@ -172,6 +172,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Test",
+            "id": "c7cd8f22-549f-42cd-b7d0-ea0e7a303dfb",
+            "actions": [
+                {
+                    "name": "Test1",
+                    "type": "Button",
+                    "id": "694a80e7-99fb-4be5-b7cb-2b666dfdbec1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Test2",
+                    "type": "Button",
+                    "id": "27ea1eb4-286e-4cac-8efd-1516e1e3f4c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "25ef5324-6622-44f6-aa05-f17601a04699",
+                    "path": "<Keyboard>/t",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1801fa32-4b45-4309-ba00-f17abcff3905",
+                    "path": "<Keyboard>/l",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

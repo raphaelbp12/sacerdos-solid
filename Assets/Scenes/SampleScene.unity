@@ -573,12 +573,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9acabb163a84f4fb310b7960eead43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  inventory: {fileID: 11400000, guid: 5e660c1d51e77ce4aaaad8460cad0e27, type: 2}
   X_START: 5
   Y_START: -5
-  X_SPACE_BETWEEN_ITEM: 0
-  Y_SPACE_BETWEEN_ITEM: 0
-  NUMBER_OF_COLUMN: 0
+  X_SPACE_BETWEEN_ITEM: 55
+  Y_SPACE_BETWEEN_ITEM: 55
+  NUMBER_OF_COLUMN: 10
 --- !u!1 &1247990755
 GameObject:
   m_ObjectHideFlags: 0
