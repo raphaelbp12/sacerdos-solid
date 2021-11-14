@@ -12,7 +12,7 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
     
     public void Awake()
     {
-        items = GetAllPossibleItems().ToArray();
+        items = GetAllPossibleItems();
     }
     
     public void OnAfterDeserialize()
@@ -31,16 +31,8 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
     {
     }
 
-    public List<ItemObject> GetAllPossibleItems()
+    public ItemObject[] GetAllPossibleItems()
     {
-        var list = new List<ItemObject>();
-        foreach (var assetGUID in AssetDatabase.FindAssets("t:ItemObject"))
-        {
-            var assetPath = AssetDatabase.GUIDToAssetPath(assetGUID);
-            var itemObject = AssetDatabase.LoadAssetAtPath(assetPath, typeof(ItemObject));
-            list.Add((ItemObject)itemObject);
-        }
-
-        return list;
+        return Resources.LoadAll<ItemObject>("ScriptableObjects/Items");
     }
 }

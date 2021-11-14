@@ -11,8 +11,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
 {
     public string savePath = "/inventory.Save";
-    public ItemDatabaseObject database;
+    private ItemDatabaseObject database;
     public List<InventorySlot> Container = new List<InventorySlot>();
+
+    private void OnEnable()
+    {
+        database = Resources.Load<ItemDatabaseObject>("ScriptableObjects/Items/Database");
+    }
 
     public void AddItem(ItemObject _item, int _amount)
     {

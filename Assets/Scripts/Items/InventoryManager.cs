@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -18,15 +19,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<ItemObject> GetAllPossibleItems()
     {
-        var list = new List<ItemObject>();
-        foreach (var assetGUID in AssetDatabase.FindAssets("t:ItemObject"))
-        {
-            var assetPath = AssetDatabase.GUIDToAssetPath(assetGUID);
-            var itemObject = AssetDatabase.LoadAssetAtPath(assetPath, typeof(ItemObject));
-            list.Add((ItemObject)itemObject);
-        }
-
-        return list;
+        var list = Resources.LoadAll<ItemObject>("ScriptableObjects/Items");
+        return list.ToList();
     }
 
     public ItemObject DrawRandomItem()
