@@ -578,9 +578,9 @@ MonoBehaviour:
   inventory: {fileID: 11400000, guid: 5e660c1d51e77ce4aaaad8460cad0e27, type: 2}
   X_START: 5
   Y_START: -5
-  X_SPACE_BETWEEN_ITEM: 55
-  Y_SPACE_BETWEEN_ITEM: 55
-  NUMBER_OF_COLUMN: 10
+  X_SPACE_BETWEEN_ITEM: 105
+  Y_SPACE_BETWEEN_ITEM: 105
+  NUMBER_OF_COLUMN: 5
 --- !u!1 &1247990755
 GameObject:
   m_ObjectHideFlags: 0

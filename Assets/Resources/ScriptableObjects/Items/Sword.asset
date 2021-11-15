@@ -17,5 +17,12 @@ MonoBehaviour:
     type: 3}
   type: 1
   description: 
-  attackBonus: 10
-  defenseBonus: 0
+  buffs:
+  - attribute: 3
+    value: 0
+    min: 20
+    max: 50
+  - attribute: 0
+    value: 0
+    min: 5
+    max: 10
