@@ -17,8 +17,4 @@ MonoBehaviour:
     type: 3}
   type: 0
   description: 
-  buffs:
-  - attribute: 0
-    value: 0
-    min: 10
-    max: 20
+  buffs: []

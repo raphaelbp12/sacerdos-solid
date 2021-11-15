@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 1087691957}
   - component: {fileID: 1087691956}
   - component: {fileID: 1087691958}
+  - component: {fileID: 1087691959}
   m_Layer: 5
   m_Name: InventoryScreen
   m_TagString: Untagged
@@ -521,7 +522,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -9.384888}
-  m_SizeDelta: {x: 610, y: 1060}
+  m_SizeDelta: {x: 530, y: 1055}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1087691956
 MonoBehaviour:
@@ -576,11 +577,33 @@ MonoBehaviour:
   inventoryPrefab: {fileID: 2802296288320859991, guid: 47767fb39ac3d534ab046aaa63f24062,
     type: 3}
   inventory: {fileID: 11400000, guid: 5e660c1d51e77ce4aaaad8460cad0e27, type: 2}
+  slotSelected:
+    Id: -1
+    item:
+      Name: 
+      Id: 0
+      buffs: []
+    amount: 0
+  isSelected: 0
+  isDragging: 0
   X_START: 5
   Y_START: -5
   X_SPACE_BETWEEN_ITEM: 105
   Y_SPACE_BETWEEN_ITEM: 105
   NUMBER_OF_COLUMN: 5
+--- !u!114 &1087691959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087691954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1247990755
 GameObject:
   m_ObjectHideFlags: 0

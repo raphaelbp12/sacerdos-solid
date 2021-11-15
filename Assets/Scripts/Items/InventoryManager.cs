@@ -40,6 +40,6 @@ public class InventoryManager : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        inventoryObject.Container.Items.Clear();
+        inventoryObject.Container.Items = new InventorySlot[50];
     }
 }
