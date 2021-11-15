@@ -35,11 +35,11 @@ public class InventoryManager : MonoBehaviour
         if (inventoryObject == null) throw new Exception("inventory object is null inside InventoryManager");
         var randomItem = DrawRandomItem();
         
-        inventoryObject.AddItem(randomItem, 1);
+        inventoryObject.AddItem(new Item(randomItem), 1);
     }
 
     public void OnApplicationQuit()
     {
-        inventoryObject.Container.Clear();
+        inventoryObject.Container.Items.Clear();
     }
 }

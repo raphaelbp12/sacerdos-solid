@@ -8,28 +8,28 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
-public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
+public class InventoryObject : ScriptableObject
 {
     public string savePath = "/inventory.Save";
-    private ItemDatabaseObject database;
-    public List<InventorySlot> Container = new List<InventorySlot>();
+    public ItemDatabaseObject database;
+    public Inventory Container;
 
     private void OnEnable()
     {
         database = Resources.Load<ItemDatabaseObject>("ScriptableObjects/Items/Database");
     }
 
-    public void AddItem(ItemObject _item, int _amount)
+    public void AddItem(Item _item, int _amount)
     {
-        for (int i = 0; i < Container.Count; i++)
+        for (int i = 0; i < Container.Items.Count; i++)
         {
-            if (Container[i].item == _item)
+            if (Container.Items[i].item.Id == _item.Id)
             {
-                Container[i].AddAmount(_amount);
+                Container.Items[i].AddAmount(_amount);
                 return;
             }
         }
-        Container.Add(new InventorySlot(database.GetId[_item], _item, _amount));
+        Container.Items.Add(new InventorySlot(_item.Id, _item, _amount));
     }
 
     public void Save()
@@ -51,28 +51,22 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
             file.Close();
         }
     }
+}
 
-    public void OnBeforeSerialize()
-    {
-    }
-
-    public void OnAfterDeserialize()
-    {
-        for (int i = 0; i < Container.Count; i++)
-        {
-            Container[i].item = database.GetItem[Container[i].Id];
-        }
-    }
+[System.Serializable]
+public class Inventory
+{
+    public List<InventorySlot> Items = new List<InventorySlot>();
 }
 
 [System.Serializable]
 public class InventorySlot
 {
     public int Id;
-    public ItemObject item;
+    public Item item;
     public int amount;
 
-    public InventorySlot(int _id, ItemObject _item, int _amount)
+    public InventorySlot(int _id, Item _item, int _amount)
     {
         Id = _id;
         item = _item;
