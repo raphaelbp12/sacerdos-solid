@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43bdef1c97066d43ac3a3d3138fe95b, type: 3}
   m_Name: Bones
   m_EditorClassIdentifier: 
-  Id: 0
   uiDisplay: {fileID: 1660957820977104790, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c,
     type: 3}
+  stackable: 1
   type: 6
   description: The left overs of those youv slain!
-  buffs: []
+  data:
+    Name: 
+    Id: 0
+    buffs: []

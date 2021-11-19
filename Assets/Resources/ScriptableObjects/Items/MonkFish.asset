@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc73500549b3b1489bf55b110a83c2a, type: 3}
   m_Name: MonkFish
   m_EditorClassIdentifier: 
-  Id: 1
   uiDisplay: {fileID: 5610096918170748405, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c,
     type: 3}
+  stackable: 1
   type: 0
   description: 
-  buffs: []
+  data:
+    Name: 
+    Id: 4
+    buffs: []

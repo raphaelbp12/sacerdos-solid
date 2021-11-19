@@ -24,8 +24,8 @@ public class InputManager : NetworkBehaviour
         movement.Jump.performed += _ => OnJump();
         movement.Jump.performed += _ => inventoryManager.AddRandomItemToInventory();
 
-        test.Test1.performed += _ => inventoryManager.inventoryObject.Save();
-        test.Test2.performed += _ => inventoryManager.inventoryObject.Load();
+        test.Test1.performed += _ => inventoryManager.SaveInventories();
+        test.Test2.performed += _ => inventoryManager.LoadInventories();
     }
 
     private void OnJump()

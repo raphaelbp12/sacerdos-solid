@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 public class InventoryManager : MonoBehaviour
 {
-    public MouseItem mouseItem = new MouseItem();
-    public InventoryObject inventoryObject;
-    public bool mouseEnteredInInventory = false;
+    public InventoryObject equipmentInventoryObject;
+    public InventoryObject playerInventoryObject;
     public bool isDragging = false;
 
     public List<ItemObject> itemObjects;
@@ -35,23 +35,34 @@ public class InventoryManager : MonoBehaviour
     public void AddRandomItemToInventory()
     {
         print("AddRandomItemToInventory");
-        if (inventoryObject == null) throw new Exception("inventory object is null inside InventoryManager");
+        if (playerInventoryObject == null) throw new Exception("inventory object is null inside InventoryManager");
         var randomItem = DrawRandomItem();
         
-        inventoryObject.AddItem(new Item(randomItem), 1);
+        playerInventoryObject.AddItem(new Item(randomItem), 1);
+    }
+
+    public void SaveInventories()
+    {
+        equipmentInventoryObject.Save();
+        playerInventoryObject.Save();
+    }
+
+    public void LoadInventories()
+    {
+        equipmentInventoryObject.Load();
+        playerInventoryObject.Load();
     }
 
     public void OnApplicationQuit()
     {
-        inventoryObject.Container.Items = new InventorySlot[50];
+        playerInventoryObject.Container.Clear();
+        equipmentInventoryObject.Container.Clear();
     }
 }
 
-public class MouseItem
+public static class MouseData
 {
-    public UserInterface ui;
-    public GameObject obj;
-    public InventorySlot item;
-    public InventorySlot hoverItem;
-    public GameObject hoverObj;
+    public static UserInterface interfaceMouseIsOver;
+    public static GameObject tempItemBeingDragged;
+    public static GameObject slotHoveredOver;
 }

@@ -149,7 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a107039d2965ed47a781bcbb409ae2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryObject: {fileID: 11400000, guid: 5e660c1d51e77ce4aaaad8460cad0e27, type: 2}
+  equipmentInventoryObject: {fileID: 11400000, guid: b8160f4dbfeaa454882d52679c8c24ab,
+    type: 2}
+  playerInventoryObject: {fileID: 11400000, guid: 5e660c1d51e77ce4aaaad8460cad0e27,
+    type: 2}
+  isDragging: 0
   itemObjects: []
 --- !u!1 &1352256790404334314
 GameObject:

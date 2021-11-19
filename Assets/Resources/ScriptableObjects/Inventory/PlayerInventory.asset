@@ -13,456 +13,356 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   savePath: /inventory.Save
-  database: {fileID: 11400000, guid: bb56ef90a3394ba4c9efde4f25753f7a, type: 2}
+  database: {fileID: 11400000, guid: 0ba9647d2628ea74484c579f94a31b7d, type: 2}
   Container:
     Items:
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
     - AllowedItems: 
       parent: {fileID: 0}
-      Id: -1
       item:
         Name: 
         Id: -1
         buffs: []
-        type: 6
       amount: 0
