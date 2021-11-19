@@ -76,7 +76,7 @@ public abstract class UserInterface : MonoBehaviour
     public void OnEnter(GameObject obj)
     {
         if (!inventoryManager.isDragging) return;
-        Debug.Log("OnEnter");
+        // Debug.Log("OnEnter");
         
         inventoryManager.mouseItem.hoverObj = obj;
         if (itemsDisplayed.ContainsKey(obj))
@@ -120,23 +120,23 @@ public abstract class UserInterface : MonoBehaviour
 
     public void OnClick(GameObject obj)
     {
-        Debug.Log("onclick alreadySelected " + isSelected);
-        if (!isSelected)
-        {
-            if (itemsDisplayed[obj].Id < 0) return;
-            slotSelected = itemsDisplayed[obj];
-            isSelected = true;
-        }
-        else
-        {
-            InventorySlot destinySlot = itemsDisplayed[obj];
-
-            if (slotSelected == destinySlot) return;
-                
-            inventory.MoveItem(destinySlot, slotSelected);
-            slotSelected = null;
-            isSelected = false;
-        }
+        // Debug.Log("onclick alreadySelected " + isSelected);
+        // if (!isSelected)
+        // {
+        //     if (itemsDisplayed[obj].Id < 0) return;
+        //     slotSelected = itemsDisplayed[obj];
+        //     isSelected = true;
+        // }
+        // else
+        // {
+        //     InventorySlot destinySlot = itemsDisplayed[obj];
+        //
+        //     if (slotSelected == destinySlot) return;
+        //         
+        //     inventory.MoveItem(destinySlot, slotSelected);
+        //     slotSelected = null;
+        //     isSelected = false;
+        // }
     }
 
     public void OnMove(GameObject obj)
