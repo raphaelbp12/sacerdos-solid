@@ -5,7 +5,11 @@ using UnityEngine;
 public enum ItemType
 {
         Food,
-        Equipment,
+        Helment,
+        Weapon,
+        OffHand,
+        Boots,
+        Chest,
         Default      
 }
 
@@ -36,15 +40,24 @@ public abstract class ItemObject : ScriptableObject
 [System.Serializable]
 public class Item
 {
-        public string Name;
-        public int Id;
+        public string Name = "";
+        public int Id = -1;
         public ItemBuff[] buffs;
+        public ItemType type;
 
+        public Item()
+        {
+                Name = "";
+                Id = -1;
+                type = ItemType.Default;
+        }
+        
         public Item(ItemObject item)
         {
                 Name = item.name;
                 Id = item.Id;
                 buffs = new ItemBuff[item.buffs.Length];
+                type = item.type;
 
                 for (int i = 0; i < buffs.Length; i++)
                 {

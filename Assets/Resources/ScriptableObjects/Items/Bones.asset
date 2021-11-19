@@ -15,5 +15,6 @@ MonoBehaviour:
   Id: 0
   uiDisplay: {fileID: 1660957820977104790, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c,
     type: 3}
-  type: 2
+  type: 6
   description: The left overs of those youv slain!
+  buffs: []

@@ -66,7 +66,7 @@ public class InventoryObject : ScriptableObject
         {
             if (Container.Items[i].item == _item)
             {
-                Container.Items[i].UpdateSlot(-1, null, 0);
+                Container.Items[i].UpdateSlot(-1, new Item(), 0);
             }
         }
     }
@@ -97,17 +97,33 @@ public class InventoryObject : ScriptableObject
             file.Close();
         }
     }
+
+    [ContextMenu("Clear")]
+    public void Clear()
+    {
+        Container.Clear();
+    }
 }
 
 [System.Serializable]
 public class Inventory
 {
     public InventorySlot[] Items = new InventorySlot[50];
+
+    public void Clear()
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            Items[i].UpdateSlot(-1, new Item(), 0);
+        }
+    }
 }
 
 [System.Serializable]
 public class InventorySlot
 {
+    public ItemType[] AllowedItems = Array.Empty<ItemType>();
+    public UserInterface parent;
     public int Id;
     public Item item;
     public int amount;
@@ -136,5 +152,18 @@ public class InventorySlot
     public void AddAmount(int value)
     {
         amount += value;
+    }
+
+    public bool CanPlaceInSlot(Item _item)
+    {
+        if (AllowedItems.Length <= 0) return true;
+
+        for (int i = 0; i < AllowedItems.Length; i++)
+        {
+            if (_item.type == AllowedItems[i])
+                return true;
+        }
+
+        return false;
     }
 }

@@ -8,7 +8,10 @@ using Object = UnityEngine.Object;
 
 public class InventoryManager : MonoBehaviour
 {
+    public MouseItem mouseItem = new MouseItem();
     public InventoryObject inventoryObject;
+    public bool mouseEnteredInInventory = false;
+    public bool isDragging = false;
 
     public List<ItemObject> itemObjects;
 
@@ -42,4 +45,13 @@ public class InventoryManager : MonoBehaviour
     {
         inventoryObject.Container.Items = new InventorySlot[50];
     }
+}
+
+public class MouseItem
+{
+    public UserInterface ui;
+    public GameObject obj;
+    public InventorySlot item;
+    public InventorySlot hoverItem;
+    public GameObject hoverObj;
 }
