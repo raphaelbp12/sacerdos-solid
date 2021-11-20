@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: EquipmentInventory
   m_EditorClassIdentifier: 
   savePath: /equipment.Save
-  database: {fileID: 11400000, guid: 0ba9647d2628ea74484c579f94a31b7d, type: 2}
+  database: {fileID: 0}
   Container:
     Slots:
     - AllowedItems: 01000000
       item:
-        Name: 
-        Id: -1
-        buffs: []
-      amount: 0
+        Name: Helmet
+        Id: 4
+        buffs:
+        - attribute: 1
+          value: 17
+          min: 15
+          max: 26
+      amount: 1
     - AllowedItems: 05000000
       item:
         Name: 

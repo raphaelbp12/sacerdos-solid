@@ -18,10 +18,18 @@ MonoBehaviour:
   type: 2
   description: 
   data:
-    Name: 
-    Id: -1
+    Name: Sword
+    Id: 6
     buffs:
     - attribute: 2
+      value: 0
+      min: 5
+      max: 35
+    - attribute: 1
+      value: 0
+      min: 5
+      max: 35
+    - attribute: 3
       value: 0
       min: 5
       max: 35

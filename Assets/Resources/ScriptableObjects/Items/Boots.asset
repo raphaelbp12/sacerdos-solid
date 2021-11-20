@@ -18,8 +18,8 @@ MonoBehaviour:
   type: 4
   description: 
   data:
-    Name: 
-    Id: -1
+    Name: Boots
+    Id: 1
     buffs:
     - attribute: 0
       value: 0

@@ -47,7 +47,7 @@ public class InventoryObject : ScriptableObject
     
     private void OnEnable()
     {
-        database = Resources.Load<ItemDatabaseObject>("ScriptableObjects/Items/Database");
+        database = Resources.Load<ItemDatabaseObject>("ScriptableObjects/Databases/Database");
     }
 
     public bool AddItem(Item _item, int _amount)
@@ -199,7 +199,6 @@ public class InventorySlot
         item = _item;
         amount = _amount;
         OnAfterUpdate?.Invoke(this);
-
     }
 
     public bool CanPlaceInSlot(ItemObject _itemObject)
