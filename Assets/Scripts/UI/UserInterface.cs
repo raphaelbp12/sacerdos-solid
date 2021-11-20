@@ -66,6 +66,16 @@ public abstract class UserInterface : MonoBehaviour
     public void OnEnter(GameObject obj)
     {
         MouseData.slotHoveredOver = obj;
+
+
+        var slotItem = slotsOnInterface[obj];
+        var tooltipTrigger = obj.GetComponent<TooltipTrigger>();
+
+        if (tooltipTrigger != null)
+        {
+            tooltipTrigger.header = slotItem.item.Name;
+            tooltipTrigger.content = slotItem.item.GetDescription();
+        }
     }
 
     public void OnExitInventoryWindow(GameObject obj)

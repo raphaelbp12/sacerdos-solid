@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public enum ItemType
@@ -63,6 +62,22 @@ public class Item
                                 attribute = item.data.buffs[i].attribute
                         };
                 }
+        }
+
+        public string GetDescription()
+        {
+                if (Id < 0) return "";
+                
+                StringBuilder description = new StringBuilder();
+
+                description.Append("Rarity").AppendLine();
+                for (int i = 0; i < buffs.Length; i++)
+                {
+                        var buff = buffs[i];
+                        description.Append("<color=green>").Append(buff.attribute.ToString()).Append(": +").Append(buff.value).Append("</color>").AppendLine();
+                }
+
+                return description.ToString();
         }
 }
 

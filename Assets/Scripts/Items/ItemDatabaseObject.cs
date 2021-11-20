@@ -14,6 +14,11 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
     public void Awake()
     {
         ItemsObjects = GetAllPossibleItems();
+        for (int i = 0; i < ItemsObjects.Length; i++)
+        {
+            ItemsObjects[i].data.Id = i;
+            GetItem.Add(i, ItemsObjects[i]);
+        }
     }
     
     public void OnAfterDeserialize()
