@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29217508ff8b4904e8abc82d0ab10ddb, type: 3}
+  m_Script: {fileID: 11500000, guid: 316ec1cb02e540d7a809aec01162f9e6, type: 3}
   m_Name: Boots
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 6471586766639389086, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c,
@@ -19,5 +19,9 @@ MonoBehaviour:
   description: 
   data:
     Name: 
-    Id: 1
-    buffs: []
+    Id: -1
+    buffs:
+    - attribute: 0
+      value: 0
+      min: 10
+      max: 25

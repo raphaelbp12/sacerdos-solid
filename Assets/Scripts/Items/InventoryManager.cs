@@ -1,17 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 
 public class InventoryManager : MonoBehaviour
 {
     public InventoryObject equipmentInventoryObject;
     public InventoryObject playerInventoryObject;
-    public bool isDragging = false;
 
     public List<ItemObject> itemObjects;
 
@@ -55,8 +50,8 @@ public class InventoryManager : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        playerInventoryObject.Container.Clear();
-        equipmentInventoryObject.Container.Clear();
+        playerInventoryObject.Clear();
+        equipmentInventoryObject.Clear();
     }
 }
 
