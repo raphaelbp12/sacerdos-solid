@@ -15,37 +15,32 @@ MonoBehaviour:
   savePath: /equipment.Save
   database: {fileID: 11400000, guid: 0ba9647d2628ea74484c579f94a31b7d, type: 2}
   Container:
-    Items:
+    Slots:
     - AllowedItems: 01000000
-      parent: {fileID: 0}
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
     - AllowedItems: 05000000
-      parent: {fileID: 0}
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
     - AllowedItems: 02000000
-      parent: {fileID: 0}
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
     - AllowedItems: 0300000002000000
-      parent: {fileID: 0}
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
     - AllowedItems: 04000000
-      parent: {fileID: 0}
       item:
         Name: 
         Id: -1

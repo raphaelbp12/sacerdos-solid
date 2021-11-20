@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.Serialization;
 using Object = System.Object;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
@@ -14,15 +15,16 @@ public class InventoryObject : ScriptableObject
     public string savePath = "/inventory.Save";
     public ItemDatabaseObject database;
     public Inventory Container;
+    public InventorySlot[] GetSlots { get { return Container.Slots; } }
 
     public int EmptySlotCount
     {
         get
         {
             int counter = 0;
-            for (int i = 0; i < Container.Items.Length; i++)
+            for (int i = 0; i < Container.Slots.Length; i++)
             {
-                if (Container.Items[i].item.Id <= 0)
+                if (Container.Slots[i].item.Id <= 0)
                     counter++;
             }
 
@@ -32,11 +34,11 @@ public class InventoryObject : ScriptableObject
 
     public InventorySlot FindItemOnInventory(Item _item)
     {
-        for (int i = 0; i < Container.Items.Length; i++)
+        for (int i = 0; i < Container.Slots.Length; i++)
         {
-            if (Container.Items[i].item.Id == _item.Id)
+            if (Container.Slots[i].item.Id == _item.Id)
             {
-                return Container.Items[i];
+                return Container.Slots[i];
             }
         }
 
@@ -64,12 +66,12 @@ public class InventoryObject : ScriptableObject
 
     public InventorySlot SetEmptySlot(Item _item, int _amount)
     {
-        for (int i = 0; i < Container.Items.Length; i++)
+        for (int i = 0; i < Container.Slots.Length; i++)
         {
-            if (Container.Items[i].item.Id <= -1)
+            if (Container.Slots[i].item.Id <= -1)
             {
-                Container.Items[i].UpdateSlot(_item, _amount);
-                return Container.Items[i];
+                Container.Slots[i].UpdateSlot(_item, _amount);
+                return Container.Slots[i];
             }
         }
         //setup inventory full
@@ -88,11 +90,11 @@ public class InventoryObject : ScriptableObject
 
     public void RemoveItem(Item _item)
     {
-        for (int i = 0; i < Container.Items.Length; i++)
+        for (int i = 0; i < Container.Slots.Length; i++)
         {
-            if (Container.Items[i].item == _item)
+            if (Container.Slots[i].item == _item)
             {
-                Container.Items[i].UpdateSlot(new Item(), 0);
+                Container.Slots[i].UpdateSlot(new Item(), 0);
             }
         }
     }
@@ -114,10 +116,10 @@ public class InventoryObject : ScriptableObject
             FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePath), FileMode.Open);
             var tempContainer = JsonUtility.FromJson<Inventory>(bf.Deserialize(file).ToString());
 
-            for (int i = 0; i < tempContainer.Items.Length; i++)
+            for (int i = 0; i < tempContainer.Slots.Length; i++)
             {
-                var tempSlot = tempContainer.Items[i];
-                Container.Items[i].UpdateSlot(tempSlot.item, tempSlot.amount);
+                var tempSlot = tempContainer.Slots[i];
+                Container.Slots[i].UpdateSlot(tempSlot.item, tempSlot.amount);
             }
             
             file.Close();
@@ -134,13 +136,13 @@ public class InventoryObject : ScriptableObject
 [System.Serializable]
 public class Inventory
 {
-    public InventorySlot[] Items = new InventorySlot[50];
+    public InventorySlot[] Slots = new InventorySlot[50];
 
     public void Clear()
     {
-        for (int i = 0; i < Items.Length; i++)
+        for (int i = 0; i < Slots.Length; i++)
         {
-            Items[i].RemoveItem();
+            Slots[i].RemoveItem();
         }
     }
 }
@@ -149,8 +151,8 @@ public class Inventory
 public class InventorySlot
 {
     public ItemType[] AllowedItems = Array.Empty<ItemType>();
-    [System.NonSerialized]
-    public UserInterface parent;
+    [System.NonSerialized] public UserInterface parent;
+    [System.NonSerialized] public GameObject slotDisplay;
     public Item item;
     public int amount;
 

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Nem Item Database", menuName = "Inventory System/Items/Database")]
 public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiver
 {
-    public ItemObject[] items;
+    public ItemObject[] ItemsObjects;
     public Dictionary<int, ItemObject> GetItem = new Dictionary<int, ItemObject>();
     
     public void Awake()
     {
-        items = GetAllPossibleItems();
+        ItemsObjects = GetAllPossibleItems();
     }
     
     public void OnAfterDeserialize()
     {
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < ItemsObjects.Length; i++)
         {
-            items[i].data.Id = i;
-            GetItem.Add(i, items[i]);
+            ItemsObjects[i].data.Id = i;
+            GetItem.Add(i, ItemsObjects[i]);
         }
     }
     
