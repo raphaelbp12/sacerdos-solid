@@ -90,14 +90,27 @@ namespace Items.ItemMods
                 var selectedModTypes = result.Select(mod => mod.baseMod.type).ToList();
                 
                 var filteredList = _allAffixPossibilities.Where(x => x.iLevel <= _iLevel).Where(x => !selectedModTypes.Contains(x.baseMod.type)).ToList();
+                
+                var prefixNum = result.Where(x => x.affixType == AffixType.Preffix).ToList().Count;
+                var suffixNum = result.Count - prefixNum;
+
+                if (prefixNum >= _prefixNum)
+                {
+                    filteredList = filteredList.Where(mod => mod.affixType != AffixType.Preffix).ToList();
+                }
+
+                if (suffixNum >= _suffixNum)
+                {
+                    filteredList = filteredList.Where(mod => mod.affixType != AffixType.Suffix).ToList();
+                }
+                
                 var affixToAdd = DrawModOnListByWeight(filteredList);
                 
                 if(affixToAdd != null)
                     result.Add(affixToAdd);
             }
-            
-            
-            return result;
+
+            return result.OrderBy(x => x.affixType.ToString()).ToList();
         }
 
         private static Mod DrawModOnListByWeight(List<Mod> filteredList)
@@ -202,7 +215,7 @@ namespace Items.ItemMods
                     new float[] {2, 4}
                 },
                 ValueType.Flat,
-                AffixType.Preffix),
+                AffixType.Suffix),
             new BaseMod(ModType.FlatLifeLeechOnKill,
                 "+# Life gained on Kill",
                 new[] {ModTags.list[ModTagType.Life]},
@@ -213,7 +226,7 @@ namespace Items.ItemMods
                     new float[] {3, 6}, new float[] {7, 10}, new float[] {11, 14}
                 },
                 ValueType.Flat,
-                AffixType.Preffix),
+                AffixType.Suffix),
             new BaseMod(ModType.FlatLifeRegen,
                 "Regenerate # Life per second",
                 new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.LifeRegen]},
@@ -224,7 +237,7 @@ namespace Items.ItemMods
                     new float[] {1, 2}, new float[] {2, 8}, new float[] {8, 16}, new float[] {16, 24}, new float[] {24, 32}, new float[] {32, 48}, new float[] {48, 64}
                 },
                 ValueType.Flat,
-                AffixType.Preffix),
+                AffixType.Suffix),
         };
     }
 }
