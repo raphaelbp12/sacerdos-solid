@@ -1,108 +1,79 @@
+using System;
 using System.Text;
 using UnityEngine;
 
-public enum ItemType
+namespace Items
 {
-        Food,
-        Helmet,
-        Sword,
-        Shield,
-        Boots,
-        Chest,
-        Default      
-}
-
-public enum Attributes
-{
-        Agility,
-        Inteligence,
-        Stamina,
-        Strength
-}
-
-public abstract class ItemObject : ScriptableObject
-{
-        public Sprite uiDisplay;
-        public bool stackable;
-        public ItemType type;
-        [TextArea(15, 20)]
-        public string description;
-        public Item data = new Item();
-
-        public Item CreateItem()
+        public enum ItemType
         {
-                Item newItem = new Item(this);
-                return newItem;
+                Food,
+                Helmet,
+                Sword,
+                Shield,
+                Boots,
+                Chest,
+                Default
         }
-}
 
-[System.Serializable]
-public class Item
-{
-        public string Name = "";
-        public int Id = -1;
-        public ItemBuff[] buffs;
-
-        public Item()
+        public abstract class ItemObject : ScriptableObject
         {
-                Name = "";
-                Id = -1;
-        }
-        
-        public Item(ItemObject item)
-        {
-                Name = item.name;
-                Id = item.data.Id;
-                buffs = new ItemBuff[item.data.buffs.Length];
+                public Sprite uiDisplay;
+                public bool stackable;
+                public ItemType type;
+                [TextArea(15, 20)] public string description;
+                public Item data = new Item();
 
-                for (int i = 0; i < buffs.Length; i++)
+                public Item CreateItem()
                 {
-                        buffs[i] = new ItemBuff(item.data.buffs[i].min, item.data.buffs[i].max)
+                        Item newItem = new Item(this);
+                        return newItem;
+                }
+        }
+
+        [Serializable]
+        public class Item
+        {
+                public string Name = "";
+                public int Id = -1;
+                public ItemMod[] buffs;
+
+                public Item()
+                {
+                        Name = "";
+                        Id = -1;
+                }
+
+                public Item(ItemObject item)
+                {
+                        Name = item.name;
+                        Id = item.data.Id;
+                        buffs = new ItemMod[item.data.buffs.Length];
+
+                        for (int i = 0; i < buffs.Length; i++)
                         {
-                                attribute = item.data.buffs[i].attribute
-                        };
+                                buffs[i] = new ItemMod(item.data.buffs[i].min, item.data.buffs[i].max)
+                                {
+                                        modType = item.data.buffs[i].modType
+                                };
+                        }
                 }
-        }
 
-        public string GetDescription()
-        {
-                if (Id < 0) return "";
-                
-                StringBuilder description = new StringBuilder();
-
-                description.Append("Rarity").AppendLine();
-                for (int i = 0; i < buffs.Length; i++)
+                public string GetDescription()
                 {
-                        var buff = buffs[i];
-                        description.Append("<color=green>").Append(buff.attribute.ToString()).Append(": +").Append(buff.value).Append("</color>").AppendLine();
+                        if (Id < 0) return "";
+
+                        StringBuilder description = new StringBuilder();
+
+                        description.Append("Rarity").AppendLine();
+                        for (int i = 0; i < buffs.Length; i++)
+                        {
+                                var buff = buffs[i];
+                                description.Append("<color=green>").Append(buff.modType.ToString()).Append(": +")
+                                        .Append(buff.value).Append("</color>").AppendLine();
+                        }
+
+                        return description.ToString();
                 }
-
-                return description.ToString();
         }
 }
 
-[System.Serializable]
-public class ItemBuff : IModifier
-{
-        public Attributes attribute;
-        public int value;
-        public int min;
-        public int max;
-
-        public ItemBuff(int _min, int _max)
-        {
-                min = _min;
-                max = _max;
-                GenerateValue();
-        }
-
-        public void GenerateValue()
-        {
-                value = UnityEngine.Random.Range(min, max);
-        }
-
-        public void AddValue(ref int baseValue)
-        {
-                baseValue += value;
-        }
-}
