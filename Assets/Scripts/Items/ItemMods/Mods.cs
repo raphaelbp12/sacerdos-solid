@@ -127,7 +127,17 @@ namespace Items.ItemMods
             int countWeight = 0;
             for (int i = 0; i < filteredList.Count; i++)
             {
-                Mod mod = filteredList[i];
+                Mod selectedMod = filteredList[i];
+                Mod mod = new Mod()
+                {
+                    baseMod = selectedMod.baseMod,
+                    affixType = selectedMod.affixType,
+                    iLevel = selectedMod.iLevel,
+                    type = selectedMod.type,
+                    tier = selectedMod.tier,
+                    value = selectedMod.value,
+                    weight = selectedMod.weight
+                };
                 countWeight += mod.weight;
 
                 if (selectedWeight <= countWeight)
@@ -156,14 +166,12 @@ namespace Items.ItemMods
                 {
                     for (int i = 0; i < baseMod.iLevels.Count; i++)
                     {
-                        var min = baseMod.values[i][0];
-                        var max = baseMod.values[i][1];
                         _allAffixPossibilities.Add(new Mod()
                         {
                             baseMod = baseMod,
                             type = baseMod.type,
                             tier = i,
-                            value = UnityEngine.Random.Range(min, max),
+                            value = 0,
                             iLevel = baseMod.iLevels[i],
                             weight = baseMod.weights[i],
                             affixType = baseMod.affixType,
