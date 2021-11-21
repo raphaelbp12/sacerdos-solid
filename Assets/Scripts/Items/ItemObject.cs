@@ -36,7 +36,6 @@ namespace Items
         {
                 public string Name = "";
                 public int Id = -1;
-                public ItemMod[] buffs;
                 public Rarity rarity;
                 public Mod[] affixes;
 
@@ -50,18 +49,9 @@ namespace Items
                 {
                         Name = item.name;
                         Id = item.data.Id;
-                        buffs = new ItemMod[item.data.buffs.Length];
 
                         rarity = Rarities.DrawRarity();
                         affixes = Mods.DrawAffixes(100, rarity.affixSlotsNum, rarity.suffixNum, rarity.prefixNum).ToArray();
-
-                        for (int i = 0; i < buffs.Length; i++)
-                        {
-                                buffs[i] = new ItemMod(item.data.buffs[i].min, item.data.buffs[i].max)
-                                {
-                                        modType = item.data.buffs[i].modType
-                                };
-                        }
                 }
 
                 public string GetName()

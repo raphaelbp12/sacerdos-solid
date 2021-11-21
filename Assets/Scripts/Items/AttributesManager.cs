@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Items.ItemMods;
 using UnityEngine;
 
 namespace Items
@@ -12,10 +14,8 @@ namespace Items
         private void Start()
         {
             _inventoryManager = gameObject.GetComponent<InventoryManager>();
-            for (int i = 0; i < attributes.Length; i++)
-            {
-                attributes[i].SetParent(this);
-            }
+
+            InitAllAttributes();
 
             for (int i = 0; i < _inventoryManager.equipmentInventoryObject.GetSlots.Length; i++)
             {
@@ -23,6 +23,16 @@ namespace Items
 
                 _slot.OnBeforeUpdate += OnBeforeSlotUpdate;
                 _slot.OnAfterUpdate += OnAfterSlotUpdate;
+            }
+        }
+
+        public void InitAllAttributes()
+        {
+            var allModTypes = Enum.GetValues(typeof(ModType)).Cast<ModType>().ToList();
+            for (int i = 0; i < allModTypes.Count(); i++)
+            {
+                ModType type = allModTypes[i];
+                attributes = attributes.Append(new Attribute(type, this)).ToArray();
             }
         }
 
@@ -37,12 +47,12 @@ namespace Items
             print(string.Concat("Removed ", _slot.itemObject, " of type ", _slot.itemObject.type, ", Allowed items: ",
                 string.Join(", ", _slot.AllowedItems)));
 
-            for (int i = 0; i < _slot.item.buffs.Length; i++)
+            for (int i = 0; i < _slot.item.affixes.Length; i++)
             {
                 for (int j = 0; j < attributes.Length; j++)
                 {
-                    if (attributes[j].type == _slot.item.buffs[i].modType)
-                        attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
+                    if (attributes[j].type == _slot.item.affixes[i].type)
+                        attributes[j].value.RemoveModifier(_slot.item.affixes[i]);
                 }
             }
         }
@@ -53,12 +63,12 @@ namespace Items
             print(string.Concat("Placed ", _slot.itemObject, " of type ", _slot.itemObject.type, ", Allowed items: ",
                 string.Join(", ", _slot.AllowedItems)));
 
-            for (int i = 0; i < _slot.item.buffs.Length; i++)
+            for (int i = 0; i < _slot.item.affixes.Length; i++)
             {
                 for (int j = 0; j < attributes.Length; j++)
                 {
-                    if (attributes[j].type == _slot.item.buffs[i].modType)
-                        attributes[j].value.AddModifier(_slot.item.buffs[i]);
+                    if (attributes[j].type == _slot.item.affixes[i].type)
+                        attributes[j].value.AddModifier(_slot.item.affixes[i]);
                 }
             }
         }
@@ -72,6 +82,12 @@ namespace Items
         public ModType type;
         public ModifiableInt value;
 
+        public Attribute(ModType _type, AttributesManager _parent)
+        {
+            type = _type;
+            SetParent(_parent);
+        }
+        
         public void SetParent(AttributesManager _parent)
         {
             parent = _parent;

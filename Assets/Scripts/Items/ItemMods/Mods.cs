@@ -65,14 +65,20 @@ namespace Items.ItemMods
         }
     }
 
-    public class Mod
+    [System.Serializable]
+    public class Mod : IModifier
     {
-        public BaseMod baseMod;
+        [NonSerialized] public BaseMod baseMod;
+        public ModType type;
         public int tier;
         public float value;
         public int iLevel;
         public int weight;
         public AffixType affixType;
+        public void AddValue(ref float baseValue)
+        {
+            baseValue += value;
+        }
     }
     
     public static class Mods
@@ -155,6 +161,7 @@ namespace Items.ItemMods
                         _allAffixPossibilities.Add(new Mod()
                         {
                             baseMod = baseMod,
+                            type = baseMod.type,
                             tier = i,
                             value = UnityEngine.Random.Range(min, max),
                             iLevel = baseMod.iLevels[i],
