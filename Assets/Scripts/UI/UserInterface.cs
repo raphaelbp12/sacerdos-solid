@@ -74,7 +74,7 @@ public abstract class UserInterface : MonoBehaviour
 
         if (tooltipTrigger != null)
         {
-            tooltipTrigger.header = slotItem.item.Name;
+            tooltipTrigger.header = slotItem.item.GetName();
             tooltipTrigger.content = slotItem.item.GetDescription();
         }
     }
