@@ -36,6 +36,7 @@ namespace Items
         {
                 public string Name = "";
                 public int Id = -1;
+                public int iLevel = 100;
                 public Rarity rarity;
                 public Mod[] affixes;
 
@@ -51,7 +52,7 @@ namespace Items
                         Id = item.data.Id;
 
                         rarity = Rarities.DrawRarity();
-                        affixes = Mods.DrawAffixes(100, rarity.affixSlotsNum, rarity.suffixNum, rarity.prefixNum).ToArray();
+                        affixes = Mods.DrawAffixes(iLevel, rarity.affixSlotsNum, rarity.suffixNum, rarity.prefixNum).ToArray();
                 }
 
                 public string GetName()
@@ -74,7 +75,7 @@ namespace Items
 
                         StringBuilder builder = new StringBuilder();
 
-                        builder.Append("<color=#666>Rarity: ").Append(rarity.name).Append("</color>").AppendLine();
+                        builder.Append("<color=#666>Rarity: ").Append(rarity.name).Append("   iLvl: ").Append(iLevel).Append("</color>").AppendLine();
                         // for (int i = 0; i < buffs.Length; i++)
                         // {
                         //         var buff = buffs[i];
