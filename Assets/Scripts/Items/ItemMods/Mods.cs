@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Items.ItemMods
         Implicit,
         Fractured
     }
-    
+
     public enum ModType
     {
         //Life
@@ -34,7 +33,7 @@ namespace Items.ItemMods
         FlatLifeRegenAndFlatMana,
         PercentageOfPhysicalAttackDamageLifeLeech,
     }
-    
+
     public class BaseMod
     {
         public ModType type;
@@ -47,12 +46,13 @@ namespace Items.ItemMods
         public AffixType affixType;
         public bool isDecimal = false;
 
-        public BaseMod(ModType _type, string _text, IEnumerable<ModTag> _tags, IEnumerable<int> _iLevels, IEnumerable<int> _weights,
-            IEnumerable<IEnumerable<float>> _values, ValueType _valueType, AffixType _affixType, bool _isDecimal = false)
+        public BaseMod(ModType _type, string _text, IEnumerable<ModTag> _tags, IEnumerable<int> _iLevels,
+            IEnumerable<int> _weights, IEnumerable<IEnumerable<float>> _values, ValueType _valueType,
+            AffixType _affixType, bool _isDecimal = false)
         {
             if (_iLevels.Count() != _weights.Count() && _weights.Count() != _values.Count())
                 throw new Exception("BaseMod initialized wrongly, list lengths don't match");
-            
+
             type = _type;
             text = _text;
             tags = _tags.ToList();
@@ -75,16 +75,17 @@ namespace Items.ItemMods
         public int iLevel;
         public int weight;
         public AffixType affixType;
+
         public void AddValue(ref float baseValue)
         {
             baseValue += value;
         }
     }
-    
+
     public static class Mods
     {
         private static List<Mod> _allAffixPossibilities;
-        
+
         public static List<Mod> DrawAffixes(int _iLevel, int _affixNum, int _suffixNum, int _prefixNum)
         {
             GenerateAllAffixPossibilities();
@@ -94,9 +95,11 @@ namespace Items.ItemMods
             for (int i = 0; i < _affixNum; i++)
             {
                 var selectedModTypes = result.Select(mod => mod.baseMod.type).ToList();
-                
-                var filteredList = _allAffixPossibilities.Where(x => x.iLevel <= _iLevel).Where(x => !selectedModTypes.Contains(x.baseMod.type)).ToList();
-                
+
+                var filteredList = _allAffixPossibilities.Where(x => x.iLevel <= _iLevel)
+                    .Where(x => !selectedModTypes.Contains(x.baseMod.type))
+                    .ToList();
+
                 var prefixNum = result.Where(x => x.affixType == AffixType.Preffix).ToList().Count;
                 var suffixNum = result.Count - prefixNum;
 
@@ -109,11 +112,10 @@ namespace Items.ItemMods
                 {
                     filteredList = filteredList.Where(mod => mod.affixType != AffixType.Suffix).ToList();
                 }
-                
+
                 var affixToAdd = DrawModOnListByWeight(filteredList);
-                
-                if(affixToAdd != null)
-                    result.Add(affixToAdd);
+
+                if (affixToAdd != null) result.Add(affixToAdd);
             }
 
             return result.OrderBy(x => x.affixType.ToString()).ToList();
@@ -123,7 +125,7 @@ namespace Items.ItemMods
         {
             var sumWeights = filteredList.Sum(x => x.weight);
             var selectedWeight = UnityEngine.Random.Range(0, sumWeights);
-            
+
             int countWeight = 0;
             for (int i = 0; i < filteredList.Count; i++)
             {
@@ -147,7 +149,7 @@ namespace Items.ItemMods
                     var randValue = UnityEngine.Random.Range(min, max);
 
                     var round2Dec = Mathf.Round(randValue * 100f) / 100f;
-                    
+
                     mod.value = mod.baseMod.isDecimal ? round2Dec : Mathf.Round(randValue);
 
                     return mod;
@@ -162,7 +164,7 @@ namespace Items.ItemMods
             if (_allAffixPossibilities == null || _allAffixPossibilities.Count == 0)
             {
                 _allAffixPossibilities = new List<Mod>();
-                list.ForEach(baseMod =>
+                list.Values.ToList().ForEach(baseMod =>
                 {
                     for (int i = 0; i < baseMod.iLevels.Count; i++)
                     {
@@ -180,79 +182,69 @@ namespace Items.ItemMods
                 });
             }
         }
-        
-        private static List<BaseMod> list = new List<BaseMod>()
+
+        public static BaseMod GetBaseMod(ModType _modType)
+        {
+            return list[_modType];
+        }
+            
+        private static Dictionary<ModType, BaseMod> list = new Dictionary<ModType, BaseMod>()
         {
             //Prefix
-            new BaseMod(ModType.FlatLife,
-                "+# to maximum Life",
-                new[] {ModTags.list[ModTagType.Life]},
-                new[] {1, 5, 11, 18, 24, 30, 36, 44},
-                new[] {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000},
-                new[]
-                {
-                    new float[] {3, 9}, new float[] {10, 19}, new float[] {20, 29}, new float[] {30, 39}, new float[] {40, 49},
-                    new float[] {50, 59}, new float[] {60, 69}, new float[] {70, 79}
-                },
-                ValueType.Flat,
-                AffixType.Preffix),
-            new BaseMod(ModType.PercentageOfPhysicalAttackDamageLifeLeech,
-                "#% of Physical Attack Damage Leeched as Life",
-                new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Attack], ModTags.list[ModTagType.Physical]},
-                new[] {1},
-                new[] {1000},
-                new[]
-                {
-                    new float[] {0.2f, 0.4f}
-                },
-                ValueType.Percentage,
-                AffixType.Preffix,
-                true),
-            new BaseMod(ModType.FlatLifeLeechSpell,
-                "+# Life gained for each Enemy hit by your Spells",
-                new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Caster]},
-                new[] {1, 75},
-                new[] {800, 800},
-                new[]
-                {
-                    new float[] {8, 12}, new float[] {13, 15}
-                },
-                ValueType.Flat,
-                AffixType.Preffix),
+            {
+                ModType.FlatLife,
+                new BaseMod(ModType.FlatLife, "+# to maximum Life", new[] {ModTags.list[ModTagType.Life]},
+                    new[] {1, 5, 11, 18, 24, 30, 36, 44}, new[] {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000},
+                    new[]
+                    {
+                        new float[] {3, 9}, new float[] {10, 19}, new float[] {20, 29}, new float[] {30, 39},
+                        new float[] {40, 49}, new float[] {50, 59}, new float[] {60, 69}, new float[] {70, 79}
+                    }, ValueType.Flat, AffixType.Preffix)
+            },
+            {
+                ModType.PercentageOfPhysicalAttackDamageLifeLeech,
+                new BaseMod(ModType.PercentageOfPhysicalAttackDamageLifeLeech,
+                    "#% of Physical Attack Damage Leeched as Life",
+                    new[]
+                    {
+                        ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Attack],
+                        ModTags.list[ModTagType.Physical]
+                    }, new[] {1}, new[] {1000}, new[] {new float[] {0.2f, 0.4f}}, ValueType.Percentage,
+                    AffixType.Preffix, true)
+            },
+            {
+                ModType.FlatLifeLeechSpell,
+                new BaseMod(ModType.FlatLifeLeechSpell, "+# Life gained for each Enemy hit by your Spells",
+                    new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Caster]}, new[] {1, 75},
+                    new[] {800, 800}, new[] {new float[] {8, 12}, new float[] {13, 15}}, ValueType.Flat,
+                    AffixType.Preffix)
+            },
+
             //Suffix
-            new BaseMod(ModType.FlatLifeLeechAttack,
-                "+# Life gained for each Enemy hit by your Attacks",
-                new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Attack]},
-                new[] {1},
-                new[] {1000},
-                new[]
-                {
-                    new float[] {2, 4}
-                },
-                ValueType.Flat,
-                AffixType.Suffix),
-            new BaseMod(ModType.FlatLifeLeechOnKill,
-                "+# Life gained on Kill",
-                new[] {ModTags.list[ModTagType.Life]},
-                new[] {1, 23, 40},
-                new[] {1000, 1000, 1000},
-                new[]
-                {
-                    new float[] {3, 6}, new float[] {7, 10}, new float[] {11, 14}
-                },
-                ValueType.Flat,
-                AffixType.Suffix),
-            new BaseMod(ModType.FlatLifeRegen,
-                "Regenerate # Life per second",
-                new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.LifeRegen]},
-                new[] {1, 7, 19, 31, 44, 55, 68},
-                new[] {1000, 1000, 1000, 1000, 1000, 1000, 1000},
-                new[]
-                {
-                    new float[] {1, 2}, new float[] {2, 8}, new float[] {8, 16}, new float[] {16, 24}, new float[] {24, 32}, new float[] {32, 48}, new float[] {48, 64}
-                },
-                ValueType.Flat,
-                AffixType.Suffix),
+            {
+                ModType.FlatLifeLeechAttack,
+                new BaseMod(ModType.FlatLifeLeechAttack, "+# Life gained for each Enemy hit by your Attacks",
+                    new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.Attack]}, new[] {1}, new[] {1000},
+                    new[] {new float[] {2, 4}}, ValueType.Flat, AffixType.Suffix)
+            },
+            {
+                ModType.FlatLifeLeechOnKill,
+                new BaseMod(ModType.FlatLifeLeechOnKill, "+# Life gained on Kill",
+                    new[] {ModTags.list[ModTagType.Life]}, new[] {1, 23, 40}, new[] {1000, 1000, 1000},
+                    new[] {new float[] {3, 6}, new float[] {7, 10}, new float[] {11, 14}}, ValueType.Flat,
+                    AffixType.Suffix)
+            },
+            {
+                ModType.FlatLifeRegen,
+                new BaseMod(ModType.FlatLifeRegen, "Regenerate # Life per second",
+                    new[] {ModTags.list[ModTagType.Life], ModTags.list[ModTagType.LifeRegen]},
+                    new[] {1, 7, 19, 31, 44, 55, 68}, new[] {1000, 1000, 1000, 1000, 1000, 1000, 1000},
+                    new[]
+                    {
+                        new float[] {1, 2}, new float[] {2, 8}, new float[] {8, 16}, new float[] {16, 24},
+                        new float[] {24, 32}, new float[] {32, 48}, new float[] {48, 64}
+                    }, ValueType.Flat, AffixType.Suffix)
+            },
         };
     }
 }

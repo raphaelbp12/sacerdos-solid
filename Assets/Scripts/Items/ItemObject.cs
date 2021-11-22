@@ -85,7 +85,8 @@ namespace Items
                         for (int i = 0; i < affixes.Length; i++)
                         {
                                 var affix = affixes[i];
-                                builder.Append(affix.baseMod.text.Replace("#", affix.value.ToString()))
+                                var baseMod = Mods.GetBaseMod(affix.type);
+                                builder.Append(baseMod.text.Replace("#", affix.value.ToString()))
                                         .Append(" <color=").Append("#666").Append(">").Append(affix.affixType.ToString().Substring(0, 1).ToUpper()).Append(affix.tier).Append("</color>")
                                         .AppendLine();
                         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Items.ItemMods
         Unique
     }
     
+    [Serializable]
     public class Rarity
     {
         public RarityType type;
